@@ -3,21 +3,13 @@
     require_once('dataset.php');
 
     if(isset($_POST['btnProcess'])) {
-        // the stucture of our session cartItems goes like this
-        // $_SESSION['cartItems'][key][size] = quantity
-        // it is a two dimensional array where the first index denotes the key/number/id of the specific record (array/items)
-        // followed by the size of that particular item as the second index
-        // the value to be stored is nothing other than the quantity which denotes how many pieces did the buyer purchased for that product and for that specific size
-        // if it is the first time that the item is placed then we will not find that array signature so we create that array structure then store the quantity in it
-        // otherwise we add the new quantity from the previous quantity
+       
 
         if(isset($_SESSION['cartItems'][$_POST['hdnKey']][$_POST['radSize']]))
-            $_SESSION['cartItems'][$_POST['hdnKey']][$_POST['radSize']] += $_POST['txtQuantity']; // if you already purchased this item
+            $_SESSION['cartItems'][$_POST['hdnKey']][$_POST['radSize']] += $_POST['txtQuantity']; // for purchased item/s
         else
-            $_SESSION['cartItems'][$_POST['hdnKey']][$_POST['radSize']] = $_POST['txtQuantity']; // if this is the first time you purchased the item
+            $_SESSION['cartItems'][$_POST['hdnKey']][$_POST['radSize']] = $_POST['txtQuantity']; // for first time purchased
 
-        // then we compute the total quantity based on the new number of quantity being purchased
-        // then we force redirect to the confirm file in order to notify the user on a successfull purchase
         $_SESSION['totalQuantity'] += $_POST['txtQuantity'];
         header("location: confirm.php");
     }
@@ -102,11 +94,7 @@
                         <br>
                         
                         <button class="btn btn-dark btn-lg" type="submit" name="btnProcess"><i class="fa fa-check-circle"> </i> Confirm Product Purchase</button>
-                        <!-- <button type="submit" name="btnProcess"  class="btn btn-dark btn-lg" onclick="location.href = 'confirm.php';"><i class="fa fa-check-circle"> </i> Confirm Product Purchase</button> -->
-                        <!-- <button type="submit" name="btnProcess" class="btn btn-dark btn-lg"><i class="fa fa-check-circle"></i>Confirm Product Purchase</button> -->
                     
-                            <!-- <a href="confirm.php" type="submit" name="btnProcess" class="btn btn-secondary btn-lg active"  role="button" aria-pressed="true">Link</a> -->
-                        <!-- <button type="button" class="btn btn-outline-success and-all-other-classes"> <a href="confirm.php" style="color:inherit"> Button text with correct colors </a></button> -->
 
                         <a href="index.php" class="btn btn-danger btn-lg"><i class="fa fa-arrow-left"></i> Cancel / Go Back</a>
                     </div>                                
